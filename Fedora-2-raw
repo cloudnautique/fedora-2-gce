@@ -1,0 +1,15 @@
+#!/bin/bash
+
+RELEASE=${RELEASE:-22}
+FILE="${FILE:-Fedora-Cloud-Base-22-20150521.x86_64.raw.xz}"
+NOW=$(date +"%Y%m%d")
+TARGET=fedora-cloud-base-${RELEASE}-${NOW}.tar.gz
+
+
+curl -O -X GET -L http://download.fedoraproject.org/pub/fedora/linux/releases/${RELEASE}/Cloud/x86_64/Images/${FILE}
+
+xz -dc ${FILE} > disk.raw
+
+tar -zcf ${TARGET} disk.raw
+
+cp ${TARGET} /target
